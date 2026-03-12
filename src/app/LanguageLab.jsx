@@ -1,10 +1,13 @@
 import Image from "next/image";
 // constants.js
+import Link from "next/link";
+
 export const labCapabilities = [
   {
     title: "Learning",
     desc: "Build auditory comprehension through curated audio content designed sharpen accent recognition and contextual ...",
     image: "/learning.png",
+    link: "/learning",
   },
   {
     title: "Speaking",
@@ -40,33 +43,47 @@ export const labCapabilitiess = [
   },
 ];
 // Sub-component for the Individual Cards
-const FeatureCard = ({ item, minHeight = "min-h-[300px]" }) => (
-  <div
-    className={`w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] ${minHeight} px-6 py-8 bg-white/10 border-2 border-white/30 rounded-[40px] backdrop-blur-md flex flex-col items-start gap-2 group hover:bg-white/15 transition-all duration-300`}
-  >
-    {/* Image Container */}
-    <div className="w-20 h-20 md:w-24 md:h-24 cursor-pointer flex items-center justify-center overflow-hidden group-hover:border-white/50 transition-colors">
-      <div className="relative w-12 h-12 md:w-100 md:h-100">
-        <Image
-          src={item.image}
-          alt={item.title}
-          fill
-          className="object-contain p-1"
-        />
+const FeatureCard = ({ item, minHeight = "min-h-[300px]", isLinkable = false }) => {
+  // Common styles for both Link and Div
+  const cardStyles = `w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] ${minHeight} px-6 py-8 bg-white/10 border-2 border-white/30 rounded-[40px] backdrop-blur-md flex flex-col items-start gap-2 group transition-all duration-300 ${isLinkable ? "hover:bg-white/15 cursor-pointer" : ""
+    }`;
+
+  const CardContent = (
+    <>
+      {/* Image Container */}
+      <div className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center overflow-hidden">
+        <div className="relative w-12 h-12 md:w-[100px] md:h-[100px]">
+          <Image
+            src={item.image}
+            alt={item.title}
+            fill
+            className="object-contain p-1"
+          />
+        </div>
       </div>
-    </div>
 
-    <div className="space-y-3 px-2">
-      <h3 className="text-[20px] md:text-[24px] font-semibold font-inter cursor-pointer">
-        {item.title}
-      </h3>
-      <p className="text-white/80 text-[14px] md:text-[16px] font-normal font-inter leading-relaxed line-clamp-4">
-        {item.desc}
-      </p>
-    </div>
-  </div>
-);
+      <div className="space-y-3 px-2">
+        <h3 className="text-[20px] md:text-[24px] font-semibold font-inter">
+          {item.title}
+        </h3>
+        <p className="text-white/80 text-[14px] md:text-[16px] font-normal font-inter leading-relaxed line-clamp-4">
+          {item.desc}
+        </p>
+      </div>
+    </>
+  );
 
+  // Conditional Rendering: Only use <Link> if isLinkable is true
+  return isLinkable ? (
+    <Link href={item.link || "/learning"} className={cardStyles}>
+      {CardContent}
+    </Link>
+  ) : (
+    <div className={cardStyles}>
+      {CardContent}
+    </div>
+  );
+};
 // Sub-component for the Header
 const LabHeader = () => (
   <header className="mb-16 max-w-[1148px]">
@@ -100,11 +117,13 @@ const LabHeader = () => (
   </header>
 );
 
+
 // Main Section Component
 export default function LanguageLabFeatures({ rowOneData, rowTwoData }) {
+
   return (
     <section className="flex flex-col min-h-screen w-full max-w-[1440px] mx-auto bg-black relative z-10">
-      <div className="min-h-screen bg-[#2D4A43] text-white p-8 md:p-20 font-sans">
+      <div className="min-h-screen bg-[#31564E] text-white p-8 md:p-20 font-sans">
         <div className="max-w-[1440px] mx-auto">
           <LabHeader />
 
@@ -116,17 +135,19 @@ export default function LanguageLabFeatures({ rowOneData, rowTwoData }) {
                   key={`top-${idx}`}
                   item={item}
                   minHeight="min-h-[300px]"
+                  isLinkable={true} // Enabled here
                 />
               ))}
             </div>
 
-            {/* Row 2: 3 Items */}
+            {/* Row 2: These will remain static cards */}
             <div className="pt-2 md:pt-4 flex flex-wrap justify-center gap-6">
               {rowTwoData.map((item, idx) => (
                 <FeatureCard
                   key={`bottom-${idx}`}
                   item={item}
                   minHeight="min-h-[275px]"
+                  isLinkable={false} // Disabled here
                 />
               ))}
             </div>
@@ -135,4 +156,5 @@ export default function LanguageLabFeatures({ rowOneData, rowTwoData }) {
       </div>
     </section>
   );
+
 }

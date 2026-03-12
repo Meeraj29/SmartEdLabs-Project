@@ -2,8 +2,10 @@ import type { Metadata, Viewport } from "next";
 import { geistMono, geistSans, inter, russoOne } from "@/lib/utils";
 import "./globals.css";
 
+
+
 // Pre-concatenate classes
-const bodyClassNames = `${geistSans.variable} ${geistMono.variable} ${russoOne.variable} ${inter.variable} antialiased`;
+const bodyClassNames = `${russoOne.variable} ${inter.variable} antialiased`;
 
 /* Metadata */
 export const metadata: Metadata = {
@@ -14,11 +16,13 @@ export const metadata: Metadata = {
   description: "Highly optimized Next.js app",
 };
 
+
 /* Viewport */
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
 };
+
 
 export default function RootLayout({
   children,
@@ -26,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning >
       <body suppressHydrationWarning className={bodyClassNames}>
         {children}
       </body>

@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
@@ -57,7 +58,9 @@ module.exports = {
       },
       fontFamily: {
         russo: ["var(--font-russo)"],
-        geist: ["var(--font-geist-sans)"],
+
+        inter: ["var(--font-inter)"],
+
       },
     },
   },

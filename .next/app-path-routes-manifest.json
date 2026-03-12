@@ -1,0 +1,17 @@
+{
+  "/favicon.ico/route": "/favicon.ico",
+  "/_not-found/page": "/_not-found",
+  "/affiliate/page": "/affiliate",
+  "/about/page": "/about",
+  "/careers/page": "/careers",
+  "/features/page": "/features",
+  "/contact/page": "/contact",
+  "/login/page": "/login",
+  "/learning/page": "/learning",
+  "/pricing/page": "/pricing",
+  "/register/page": "/register",
+  "/page": "/",
+  "/sales/page": "/sales",
+  "/teacher/page": "/teacher",
+  "/blogs/page": "/blogs"
+}

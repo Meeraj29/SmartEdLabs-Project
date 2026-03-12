@@ -8,10 +8,62 @@ import { Inter } from "next/font/google";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import LanguageLab from "../LanguageLab";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function FeaturesPage() {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  interface Module {
+    title: string;
+    color: string;
+    points: string[];
+  }
+  const modules: Module[] = [
+    {
+      title: "Phonetics & Sound Foundations",
+      color: "bg-[#F2CEE2]", // Pink
+      points: ["Sounds & Pronunciation", "Vocabulary Development", "Audio & Media Practice", "Rhymes and Poems"]
+    },
+    {
+      title: "Vocabulary & Language Building",
+      color: "bg-[#B8D3D9]", // Blue-ish
+      points: ["Vocabulary Development", "Daily Used Sentences", "Time Expressions", "Expressional Greetings"]
+    },
+    {
+      title: " Grammar & Language Structure",
+      color: "bg-[#F2E0C9]", // Orange-ish
+      points: ["Grammar Essentials", "The Art of Writing", "Notes and Messages", "Summarization & Argumentation"]
+    },
+    {
+      title: "Conversational & Situational English",
+      color: "bg-[#DCF2DE]", // Orange-ish
+      points: ["Situational Conversations", "Telephonic Expressions", "Instructions and Announcements", "Public Announcements"]
+    },
+    {
+      title: "Reading, Stories & Literature",
+      color: "bg-[#F2D5E5]", // Orange-ish
+      points: ["Tales and Fables", "Storytelling", "Story Genres", "Plays, Theatre & Drama"]
+    },
+    {
+      title: "Media, Visual & Contemporary Content",
+      color: "bg-[#F0F2DC]", // Orange-ish
+      points: ["Movies & Visual Media", "Video Blogs / TED Talks", "Current Affairs"]
+    },
+    {
+      title: "Speaking, Debate & Professional Communication",
+      color: "bg-[#D8D8D6]", // Orange-ish
+      points: ["Debates and Discussions", "Interviews", "Presentation Skills", "Public Speaking & Addressing"]
+    },
+    {
+      title: "Writing & Professional Readiness",
+      color: "bg-[#E0D6D6]", // Orange-ish
+      points: ["Informal & Formal Email Writing", "CV Building & Interview Preparation", "Reports and Structured Writing"]
+    }
+    // Add more modules...
+  ];
+  const [activeTab, setActiveTab] = useState<number | null>(null);
   const features = [
     {
       title: "Intelligent Conversations",
@@ -217,7 +269,7 @@ export default function FeaturesPage() {
       desc: "clarity, stress, and articulation",
     },
   ];
-
+  const [showMobileMore, setShowMobileMore] = useState(false);
   interface FeatureItem {
     title: string;
     imagePath: string;
@@ -277,19 +329,7 @@ export default function FeaturesPage() {
     ],
   };
 
-  const modules = [
-    { title: "Phonetics & Sound Foundations", color: "bg-[#F2CEE2]" },
-    { title: "Vocabulary & Language Building", color: "bg-[#B8D3D9]" },
-    { title: "Grammar & Language Structure", color: "bg-[#F2E0C9]" },
-    { title: "Conversational & Situational English", color: "bg-[#DCF2DE]" },
-    { title: "Reading, Stories & Literature", color: "bg-[#F2D5E5]" },
-    { title: "Media, Visual & Contemporary Content", color: "bg-[#F0F2DC]" },
-    {
-      title: "Speaking, Debate & Professional Communication",
-      color: "bg-[#D8D8D6]",
-    },
-    { title: "Writing & Professional Readiness", color: "bg-[#E0D6D6]" },
-  ];
+
   const profiles = [
     "/profile1.jpg",
     "/profile2.jpg",
@@ -367,165 +407,7 @@ export default function FeaturesPage() {
           <div className="absolute inset-0 z-10 bg-white/60" />
         </div>
 
-        <header className="w-full flex justify-center sticky top-0 z-50">
-          <div className="w-full px-4 md:px-6 lg:px-[100px] h-[72px] lg:h-[96px] flex items-center justify-between">
-            <div className="relative z-30 flex items-center gap-[12px]">
-              <Image
-                src="/logo.svg"
-                alt="Logo"
-                width={40}
-                height={40}
-                className="w-[40px] h-[40px] lg:w-[64px] lg:h-[64px]"
-              />
-              <span
-                className="text-black font-medium text-[18px] lg:text-[26px]"
-                style={{ fontFamily: "Russo One" }}
-              >
-                SmartEdLabs
-              </span>
-            </div>
-
-            <nav className="relative z-30 hidden lg:flex items-center px-4 py-2 rounded-full border border-gray-100 bg-white/80 backdrop-blur-md">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`px-6 py-2 rounded-full text-[14px] font-medium transition-all ${
-                    pathname === link.href
-                      ? "bg-white shadow-md text-[#31564E]"
-                      : "text-black hover:text-green-900"
-                  }`}
-                >
-                  {link.name}
-                </Link>
-              ))}
-              <div
-                className="relative inline-block text-left"
-                ref={dropdownRef}
-              >
-                {/* Trigger Button */}
-                <button
-                  onClick={() => setIsOpen(!isOpen)}
-                  className="flex items-center text-[14px] gap-1 px-4 py-2 text-gray-700 font-medium hover:text-emerald-800 transition-colors"
-                >
-                  More
-                  <svg
-                    className={`w-4 h-4 transition-transform ${isOpen ? "rotate-180" : ""}`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </button>
-
-                {/* The Menu (Visible only when isOpen is true) */}
-                {isOpen && (
-                  <div className="absolute left-0 mt-2 w-72 bg-white rounded-[2rem] shadow-xl ring-1 ring-black/5 z-50 p-4">
-                    <div className="flex flex-col gap-1">
-                      {morelinks.map((link, index) => (
-                        <a
-                          key={index}
-                          href={link.href}
-                          className="px-5 py-3 text-[16px] text-gray-800 font-medium rounded-2xl transition-colors hover:bg-emerald-50 hover:text-emerald-900"
-                        >
-                          {link.label}
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            </nav>
-
-            <div
-              className={`fixed inset-0 bg-white z-50 transition-transform duration-300 flex flex-col lg:hidden ${
-                isOpen ? "translate-x-0" : "translate-x-full"
-              }`}
-            >
-              <div className="flex items-center p-6 border-b border-gray-100">
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="flex items-center gap-2 text-black hover:text-[#31564E] transition-colors"
-                ></button>
-              </div>
-
-              <nav className="flex flex-col gap-4 p-6 overflow-y-auto">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setIsOpen(false)} // Close menu when clicking a link
-                    className={`px-10 py-4 text-center text-xl font-semibold rounded-full border-2 transition-all 
-        ${
-          pathname === link.href
-            ? "bg-[#F7FFFA] border-[#31564E] text-[#31564E] shadow-md"
-            : "bg-white border-gray-100 text-black"
-        }`}
-                  >
-                    {link.name}
-                  </Link>
-                ))}
-
-                <div className="flex flex-col items-center justify-center gap-4 w-full px-4 md:flex-row md:gap-6">
-                  <button className="mt-4 md:mt-0  w-full max-w-[318px] h-[51px] flex items-center justify-center gap-[10px] rounded-full border-2 border-[#31564E] text-[#31564E] text-sm font-semibold cursor-pointer transition-all duration-150 active:scale-95 hover:bg-[#31564E] hover:text-white">
-                    Book A Free Demo
-                  </button>
-
-                  <button className="w-full max-w-[318px] h-[51px] flex items-center justify-center gap-[10px] cursor-pointer transition-all duration-150 active:scale-95 rounded-full bg-black text-white text-[16px] font-semibold hover:bg-[#31564E]">
-                    Register
-                  </button>
-                </div>
-              </nav>
-
-              <nav className="flex items-center gap-6 p-4">
-                {navLinks.map((link) => {
-                  // Check if the link is a registration link to apply button styling
-                  const isRegister = link.name.startsWith("Register");
-
-                  return (
-                    <Link
-                      key={link.name}
-                      href={link.href}
-                      className={
-                        isRegister
-                          ? "bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-all shadow-sm"
-                          : "text-gray-600 hover:text-blue-600 transition-colors font-medium"
-                      }
-                    >
-                      {link.name}
-                    </Link>
-                  );
-                })}
-              </nav>
-            </div>
-
-            <div className=" relative z-30 flex items-center gap-3">
-              <button className="hidden lg:block w-[190px] h-[51px] rounded-full border-2 border-[#31564E] text-[#31564E] text-sm font-semibold cursor-pointer transition-transform duration-150 active:scale-95 hover:bg-[#31564E] hover:text-white">
-                Book A Free Demo
-              </button>
-              <Link
-                href="/register"
-                className="hidden sm:flex items-center justify-center w-[112px] h-[51px] cursor-pointer transition-transform duration-150 active:scale-95 rounded-full bg-black text-white text-sm font-semibold hover:bg-[#31564E]"
-              >
-                Register
-              </Link>
-
-              <button
-                className="lg:hidden text-black p-2"
-                onClick={() => setIsOpen(!isOpen)}
-              >
-                {isOpen ? <X size={28} /> : <Menu size={28} />}
-              </button>
-            </div>
-          </div>
-        </header>
-
+        <Navbar />
         <nav className="hidden md:flex items-center gap-[8px] px-4 lg:px-[100px] py-4 z-20">
           <a href="/" className="text-sm font-medium hover:text-blue-600">
             Home
@@ -591,7 +473,7 @@ export default function FeaturesPage() {
             </div>
             <div className="flex flex-col gap-6 w-full lg:max-w-[630px] lg:ml-16 order-2 lg:order-1">
               <div className="flex flex-col space-y-4 md:space-y-[16px]">
-                <div className="flex items-center gap-2 px-3 py-1 bg-white border border-gray-200 rounded-full w-fit shadow-sm">
+                <div className="flex items-center gap-2 px-2 py-2 bg-white border border-gray-200 rounded-full w-fit shadow-sm">
                   <Image
                     src="/degree.svg"
                     alt="Degree"
@@ -665,7 +547,7 @@ export default function FeaturesPage() {
                     className={`relative flex flex-col transition-transform hover:scale-[1.02]   p-4 gap-2 rounded-[24px] ${path.bgColor} ${path.isFeatured ? "lg:h-[468px] lg:-mt-[52px] z-10 " : "lg:h-[416px] z-0"} h-auto min-h-[416px] w-full max-w-[402px] mx-auto`}
                   >
                     <span
-                      className={`px-4 py-2 cursor-pointer rounded-full text-[14px] font-medium w-fit border border-gray-300 font-inter ${path.badgeColor} ${path.textColor}`}
+                      className={`px-4 py-2 bg-[#E6E6E6] cursor-pointer rounded-full text-[14px] font-medium w-fit border border-gray-300 font-inter ${path.badgeColor} ${path.textColor}`}
                     >
                       Learning Path
                     </span>
@@ -677,7 +559,7 @@ export default function FeaturesPage() {
                         {path.title}
                       </h3>
                       <p
-                        className={`text-[17.5px] font-normal font-inter  leading-[26px] line-clamp-5 ${path.isFeatured ? "text-gray-200" : "text-gray-600"}`}
+                        className={`text-[16px] max-w-[330px] font-normal font-inter  leading-[26px] line-clamp-5 ${path.isFeatured ? "text-gray-200" : "text-gray-600"}`}
                       >
                         {path.description}
                       </p>
@@ -706,7 +588,7 @@ export default function FeaturesPage() {
         <section className="py-12 md:py-16 px-4 md:px-6 lg:px-20 bg-white text-[#2D4A43]">
           <div className="max-w-[1440px] mx-auto">
             <div className="text-center mb-12">
-              <div className="inline-flex items-center px-4 py-2 rounded-full border border-gray-200 text-black text-[16px] font-inter mb-4">
+              <div className="inline-flex items-center px-2 py-2 rounded-full border border-gray-200 text-black text-[16px] font-inter mb-4">
                 <Image
                   src="/degree.svg"
                   alt="Degree"
@@ -742,7 +624,7 @@ export default function FeaturesPage() {
 
               <div className="lg:w-1/2 px-2 md:px-8 w-full h-fit max-w-[588px] min-h-fit lg:h-[340px] flex flex-col justify-center gap-6 mt-8 lg:mt-0">
                 <div className="inline-flex items-center gap-2 w-fit max-w-[209px] h-[40px] px-3 py-1 rounded-full bg-[#E6E6E6]/20 border border-white/60">
-                  <span className="bg-[#C5FF3F] text-black text-[14px] font-inter font-bold w-[64px] h-[24px] px-2 py-0.5 rounded-[12px] flex items-center justify-center">
+                  <span className="bg-[#C5FF3F] text-black text-[14px] font-inter font-bold w-[64px] h-[24px] px-2 py-2 rounded-[12px] flex items-center justify-center">
                     Pre-A1
                   </span>
                   <span className="text-[14px] font-inter font-normal whitespace-nowrap">
@@ -769,7 +651,7 @@ export default function FeaturesPage() {
                   className="border border-[#E6E6E6]/80 p-8 rounded-[32px] flex flex-col justify-between gap-6 hover:shadow-lg transition-shadow bg-white"
                 >
                   <div className="flex flex-col gap-4">
-                    <div className="inline-flex items-center gap-2 px-2 py-1 rounded-full border border-[#E6E6E6]/80 w-fit">
+                    <div className="inline-flex items-center gap-2 px-2 py-2 rounded-full border border-[#E6E6E6]/80 w-fit">
                       <span className="bg-[#C5FF3F] text-black text-[14px] font-inter px-3 py-0.5 rounded-full font-normal font-inter">
                         {level.id}
                       </span>
@@ -804,9 +686,9 @@ export default function FeaturesPage() {
           {/* Content Container */}
           <div className="relative z-10 max-w-[1240px] w-full  text-center">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-2 py-1 rounded-full border border-[#E6E6E6]/40 bg-[#E6E6E6]/40 backdrop-blur-md mb-8">
+            <div className="inline-flex items-center gap-2 px-2 py-2 rounded-full border border-[#E6E6E6]/40 bg-[#E6E6E6]/40 backdrop-blur-md mb-8">
               <Image src="/degree.svg" alt="Degree" width={24} height={24} />
-              <span className="text-[16px] font-medium font-inter tracking-wider">
+              <span className="text-[16px] font-inter tracking-wider">
                 Comprehensive Assessment System
               </span>
             </div>
@@ -859,9 +741,9 @@ export default function FeaturesPage() {
             {/* Left Content Side */}
             <div className="w-full lg:w-[613px] flex flex-col justify-center text-white z-10">
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border-[1px] border-white/30 bg-[#E6E6E6]/10 w-fit mb-4">
-                <Image src="/degree.svg" alt="Degree" width={20} height={20} />
-                <span className="text-sm md:text-[16px] font-inter font-normal">
+              <div className="inline-flex items-center gap-2 px-2 py-2 rounded-full border-[1px] border-white/30 bg-[#E6E6E6]/10 w-fit mb-4">
+                <Image src="/degree.svg" alt="Degree" width={24} height={24} />
+                <span className="text-[16px] md:text-[16px] font-inter font-normal">
                   Live Interactive Classes
                 </span>
               </div>
@@ -870,7 +752,7 @@ export default function FeaturesPage() {
               <h2 className="text-[28px] md:text-[40px] font-semibold font-inter mb-4 leading-tight">
                 Learn from Expert Instructors in Real-Time
               </h2>
-              <p className="text-gray-300 text-sm md:text-[17px] font-inter max-w-[613px] mb-8 leading-relaxed">
+              <p className="text-gray-300 text-sm md:text-[16px] font-inter max-w-[590px] mb-8 leading-relaxed">
                 Complement your self-paced learning with live instructor-led
                 sessions. Our seamless Google Meet integration brings classroom
                 experience to your screen.
@@ -915,7 +797,7 @@ export default function FeaturesPage() {
           <div className="max-w-[1440px] mx-auto flex flex-col lg:flex-row items-start gap-6">
             <div className="flex-1 w-full">
               <div className="mb-12">
-                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-50 border border-[#E6E6E6] text-base font-medium text-black mb-2">
+                <span className="inline-flex items-center gap-2 px-2 py-2 rounded-full bg-gray-50 border border-[#E6E6E6] text-[16px] font-medium text-black mb-2">
                   <Image
                     src="/degree.svg"
                     alt="Degree"
@@ -1345,7 +1227,7 @@ export default function FeaturesPage() {
           {/* Changed w-full to flex-1 on desktop so it balances with the image on iPad Pro */}
           <div className="w-full lg:flex-1 lg:max-w-[560px] flex flex-col justify-center text-white">
             {/* White-Label Badge */}
-            <div className="inline-flex items-center gap-2 bg-[#E6E6E6]/20 border border-[#E6E6E6]/40 rounded-full px-3 py-1.5 text-[14px] md:text-[16px] font-medium w-fit mb-4 md:mb-6">
+            <div className="inline-flex items-center gap-2 bg-[#E6E6E6]/20 border border-[#E6E6E6]/40 rounded-full px-2 py-2 text-[14px] md:text-[16px]  w-fit mb-4 md:mb-6">
               <Image
                 src="/degree.svg"
                 alt="Degree"
@@ -1353,7 +1235,7 @@ export default function FeaturesPage() {
                 height={24}
                 className="w-5 h-5 md:w-6 md:h-6"
               />
-              <span className="pr-2">
+              <span className="pr-2 ">
                 For Institutions - White-Label Solution
               </span>
             </div>
@@ -1474,9 +1356,8 @@ export default function FeaturesPage() {
         <section className="min-h-[700px] bg-white py-12 px-4 font-sans text-gray-800">
           {/* Header Section */}
           <header className="max-w-4xl mx-auto text-center mb-16">
-            <div className="inline-flex items-center gap-1 px-1 py-1.5 rounded-full border border-gray-200 text-[16px] font-inter font-medium mb-6">
-              <Image src="/degree.svg" alt="Degree" width={24} height={24} />{" "}
-              Modules
+            <div className="inline-flex items-center gap-1 px-2 py-2 rounded-full border border-gray-200 text-[16px] font-inter font-medium mb-6">
+              <Image src="/degree.svg" alt="Degree" width={24} height={24} /> Modules
             </div>
             <h1 className="text-4xl md:text-[40px] font-inter font-semibold mb-6">
               Learning Modules Framework
@@ -1490,44 +1371,96 @@ export default function FeaturesPage() {
 
           {/* Modules Container */}
           <div className="max-w-[1240px] mx-auto relative px-4">
-            {/* The Dotted Line (Desktop only) */}
-            <div className="hidden lg:block absolute top-1/2 left-0 w-full  z-10 pointer-events-none" />
+            <div className="flex flex-col lg:flex-row justify-center gap-4 lg:gap-4">
+              {modules.map((module, index) => {
+                const isHovered = hoveredIndex === index;
 
-            <div className="flex flex-wrap lg:flex-nowrap justify-center gap-2 lg:gap-4 ">
-              {modules.map((module, index) => (
-                <div
-                  key={index}
-                  className={`
-                ${module.color} 
-                w-full sm:w-[45%] lg:w-[138.38px]  
-                h-48 lg:h-[371px] 
-                rounded-[50px] lg:rounded-full  
-                flex items-center justify-center 
-                p-6 relative z-20 
-                shadow-sm hover:shadow-md transition-shadow
-                cursor-default
-              `}
-                >
-                  <h3
-                    className="
-                text-center font-semibold text-sm md:text-base lg:text-[20px] font-inter
-                lg:[writing-mode:vertical-rl] lg:rotate-180 
-              "
+                return (
+                  <div
+                    key={index}
+                    onMouseEnter={() => setHoveredIndex(index)}
+                    onMouseLeave={() => setHoveredIndex(null)}
+                    onClick={() => {
+                      // If it's already open, close it. Otherwise, open this one.
+                      setHoveredIndex(hoveredIndex === index ? null : index);
+                    }}
+                    className={`
+              ${module.color} 
+              relative flex flex-col items-center justify-center p-6
+              transition-all duration-500 ease-in-out
+              
+              /* --- RESPONSIVE DIMENSIONS --- */
+              min-h-[120px] lg:h-[371px] 
+              ${isHovered
+                        ? "w-full lg:w-[378px] z-50 shadow-xl rounded-[16px]"
+                        : "w-full lg:w-[138px] z-20 rounded-[16px] lg:rounded-[150px]"
+                      }
+            `}
                   >
-                    {module.title}
-                  </h3>
-                </div>
-              ))}
+
+                    {isHovered ? (
+                      /* Content View */
+                      <div className="w-full flex flex-col items-start animate-in fade-in zoom-in duration-500 lg:mb-40">
+                        <div className="bg-white rounded-full py-2 px-2 border border-[#E6E6E6] lg:w-[334px] flex items-center gap-2 mb-6">
+                          <div className="flex items-center gap-2 font-bold text-gray-800 text-[14px]">
+                            <Image
+                              src="/degree.svg"
+                              alt="Degree"
+                              width={24}
+                              height={24}
+                              className="shrink-0"
+                            />
+                            <span className="truncate max-w-[200px] lg:max-w-[250px]">
+                              {module.title}
+                            </span>
+                          </div>
+                        </div>
+
+                        <ul className="space-y-3 w-full lg:min-w-[320px]">
+                          {module.points.map((point, pIdx) => (
+                            <li key={pIdx} className="flex items-start lg:items-center gap-3">
+                              <div className="bg-[#3d5a52] rounded-full p-1 shrink-0 mt-1 lg:mt-0">
+                                <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M5 13l4 4L19 7" />
+                                </svg>
+                              </div>
+                              <span className="text-gray-900 font-semibold text-[15px] lg:text-[16px] leading-tight lg:whitespace-nowrap">
+                                {point}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : (
+                      /* Title View */
+                      <div className="flex items-center justify-center h-full w-full">
+                        <h3 className="
+                  /* Horizontal on mobile, Vertical on Desktop */
+                  lg:[writing-mode:vertical-rl] 
+                  lg:rotate-180 
+                  font-medium 
+                  text-[18px] lg:text-[20px] 
+                  leading-tight 
+                  text-center 
+                  lg:max-h-[310px]
+                  flex items-center
+                ">
+                          {module.title}
+                        </h3>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
-
         <section className="bg-[#2D4A43] max-w-[1440px] mx-auto min-h-[600px] p-8 md:p-16 flex items-center justify-center">
           <div className="  max-w-[1240px] mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             {/* Left Content Column */}
             <div className="text-white space-y-4 max-w-[610px]">
               {/* Top Badge */}
-              <div className="inline-flex items-center gap-2 border-[1px] border-[#E6E6E6]/40 bg-[#E6E6E6]/40 px-2 py-2 rounded-full text-[16px] font-inter font-medium">
+              <div className="inline-flex items-center gap-2 border-[1px] border-[#E6E6E6]/40 bg-[#E6E6E6]/40 px-2 py-2 rounded-full text-[16px] font-inter">
                 <Image src="/degree.svg" alt="Degree" width={24} height={24} />
                 <span>AI Instructor / AI Tutor Module</span>
               </div>
@@ -1569,7 +1502,7 @@ export default function FeaturesPage() {
               <img
                 src="/teacher.jpg" // Replace with your image path
                 alt="AI Tutor Classroom"
-                className="rounded-[40px] w-full h-full object-cover shadow-2xl"
+                className="rounded-[24px] w-full h-full object-cover shadow-2xl"
               />
             </div>
           </div>
@@ -1578,13 +1511,13 @@ export default function FeaturesPage() {
         <section className="w-full py-8 md:py-12 px-4 flex justify-center bg-white">
           <div className="w-full max-w-[1240px] min-h-fit md:min-h-[480px] bg-black rounded-[24px] overflow-hidden flex flex-col md:flex-row items-center p-6 md:p-12 gap-8 md:gap-12">
             <div className="flex-1 space-y-6 text-white w-full">
-              <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-2 py-1 text-[14px] font-medium">
+              <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-2 py-2 text-[14px] font-medium">
                 <Image src="/cta.svg" alt="CTA" width={20} height={20} />
                 <span>CTA</span>
               </div>
 
               <div className="space-y-4">
-                <h1 className="text-3xl md:text-[42px] font-semibold font-roboto leading-tight">
+                <h1 className="text-3xl md:text-[32px] font-semibold font-roboto leading-tight">
                   Start Your English
                 </h1>
                 <div className="flex flex-wrap items-center gap-3 md:gap-4">
@@ -1592,7 +1525,7 @@ export default function FeaturesPage() {
                     {profiles.map((src, index) => (
                       <div
                         key={index}
-                        className="relative w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-black overflow-hidden shadow-sm"
+                        className="relative w-10 h-10 md:w-12 md:h-12 rounded-full  overflow-hidden shadow-sm"
                       >
                         <Image
                           src={src}
@@ -1603,17 +1536,17 @@ export default function FeaturesPage() {
                       </div>
                     ))}
                   </div>
-                  <h2 className="text-3xl md:text-[42px] font-semibold font-roboto">
+                  <h2 className="text-3xl md:text-[32px] font-semibold font-roboto">
                     Journey Today
                   </h2>
                 </div>
               </div>
 
-              <p className="text-gray-400 max-w-[500px] text-base md:text-lg leading-relaxed font-roboto">
+              <p className="text-white max-w-[500px] text-base md:text-[16px] leading-relaxed font-roboto">
                 Join millions of learners improving their English with our
                 proven immersive Method.
               </p>
-              <button className="w-full md:w-auto bg-white text-[#31564E] cursor-pointer transition-all font-semibold px-6 py-4 rounded-full hover:bg-gray-200 active:scale-95 transition-all text-base">
+              <button className="w-full md:w-auto bg-white text-[#31564E] cursor-pointer transition-all font-semibold px-6 py-4 rounded-full hover:bg-[#31564E] hover:text-white active:scale-95 transition-all text-base">
                 Book Your Free Demo Now
               </button>
             </div>
@@ -1631,185 +1564,9 @@ export default function FeaturesPage() {
             </div>
           </div>
         </section>
-        <footer className="pb-10 py-12 px-4 md:px-10 font-sans max-w-[1440px] w-full bg-white">
-          <div className=" mx-auto border border-gray-300 bg-[#E5E5E5] max-w-[1240px] rounded-[24px] p-6 md:p-10">
-            <div className="bg-white rounded-[24px] p-6 md:p-12 flex flex-col lg:flex-row items-center justify-between gap-8 mb-16">
-              <div className="max-w-full lg:max-w-[316px] text-center lg:text-left">
-                <h2 className="text-[24px] font-inter font-semibold text-gray-900 mb-2">
-                  Stay Updated
-                </h2>
-                <p className="text-gray-500 text-[16px] font-inter font-medium">
-                  Subscribe to get the latest lessons, updates and special
-                  offers
-                </p>
-              </div>
 
-              <div className="flex flex-col sm:flex-row w-full lg:w-auto gap-3">
-                <input
-                  type="email"
-                  placeholder="Enter your email address"
-                  className="px-6 py-4 rounded-full border border-gray-200 w-full lg:w-[280px] h-[51px] outline-none focus:ring-2 focus:ring-gray-100 transition-all"
-                />
-                <button className="bg-black text-white w-full cursor-pointer transition-all sm:w-[140px] h-[51px] rounded-full font-semibold hover:bg-gray-800 active:scale-95 transition-colors shrink-0">
-                  Subscribe
-                </button>
-              </div>
-            </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 pb-12">
-              <div className="lg:col-span-5 flex flex-col items-center lg:items-start text-center lg:text-left">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 flex items-center justify-center">
-                    <Image src="/logo.svg" alt="Logo" width={64} height={64} />
-                  </div>
-                  <h3 className="text-[26px] font-inter font-normal">
-                    SmartEdLabs
-                  </h3>
-                </div>
-                <p className="text-gray-600 text-[16px] font-inter font-normal mb-8 max-w-[363px] tracking-wide">
-                  An AI-powered English learning platform helping students,
-                  educators, and organizations build strong listening, speaking,
-                  reading, and writing skills.
-                </p>
-
-                {/* Social Icons */}
-                <div className="flex flex-wrap justify-center lg:justify-start gap-3">
-                  <div className=" group flex items-center justify-center rounded-full bg-transparent transition-all duration-300 cursor-pointer hover:bg-[#F2181C]">
-                    <Image
-                      src="/youtube.svg"
-                      alt="Social"
-                      width={48} // Smaller icon size inside the 48px circle looks more professional
-                      height={48}
-                      className="transition-all duration-300 group-hover:brightness-0 group-hover:invert"
-                    />
-                  </div>
-                  <div className=" group flex items-center justify-center w-[48px] h-[48px] rounded-full bg-transparent transition-all duration-300 cursor-pointer hover:bg-[#1877F2]">
-                    <Image
-                      src="/facebook.png"
-                      alt="Social"
-                      width={48}
-                      height={48}
-                      className="transition-all duration-300 group-hover:brightness-0 group-hover:invert"
-                    />
-                  </div>
-                  <div className=" group flex items-center justify-center w-[48px] h-[48px] rounded-full bg-transparent transition-all duration-300 cursor-pointer hover:bg-[#B8D7FF]">
-                    <Image
-                      src="/internet.png"
-                      alt="Social"
-                      width={48}
-                      height={48}
-                      className="transition-all duration-300 group-hover:brightness-0 group-hover:invert"
-                    />
-                  </div>
-                  <div className=" group flex items-center justify-center w-[48px] h-[48px] rounded-full bg-transparent transition-all duration-500 cursor-pointer hover:bg-[linear-gradient(149.81deg,#405DE6_-45.44%,#5B51D8_27.28%,#833AB4_63.64%,#A2389C_81.82%,#C23484_90.91%,#FD1D1D_100%)]">
-                    <div className="relative w-[48px] h-[48px]">
-                      <Image
-                        src="/insta.png"
-                        alt="Instagram"
-                        fill
-                        className="object-contain transition-all duration-300 group-hover:brightness-0 group-hover:invert"
-                      />
-                    </div>
-                  </div>
-                  <div className=" group flex items-center justify-center w-[48px] h-[48px] rounded-full bg-transparent transition-all duration-300 cursor-pointer hover:bg-[#1877F2]">
-                    <div className="relative w-[48px] h-[48px]">
-                      <Image
-                        src="/linkedin.png"
-                        alt="Facebook"
-                        fill
-                        className="object-contain transition-all duration-300 group-hover:brightness-0 group-hover:invert"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-10 lg:pl-20 text-center sm:text-left ">
-                <div>
-                  <h4 className="font-inter font-medium text-[16px] mb-4">
-                    Quick Links
-                  </h4>
-                  <ul className="space-y-3 text-[14px] font-inter font-normal text-gray-700">
-                    <li className="hover:text-black cursor-pointer transition-colors">
-                      <Link href="/" className="block w-full">
-                        Home
-                      </Link>
-                    </li>
-                    <li className="hover:text-black cursor-pointer transition-colors">
-                      <Link href="/features" className="block w-full">
-                        Features
-                      </Link>
-                    </li>
-                    <li className="hover:text-black cursor-pointer transition-colors">
-                      <Link href="/pricing" className="block w-full">
-                        Pricing
-                      </Link>
-                    </li>
-                    <li className="hover:text-black cursor-pointer transition-colors">
-                      <Link href="/blogs" className="block w-full">
-                        Blogs
-                      </Link>
-                    </li>
-                    <li className="hover:text-black cursor-pointer transition-colors">
-                      <Link href="/about" className="block w-full">
-                        About Us
-                      </Link>
-                    </li>
-                    <li className="hover:text-black cursor-pointer transition-colors">
-                      <Link href="/contact" className="block w-full">
-                        Contact Us
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-inter font-medium text-[16px] mb-4">
-                    Solutions
-                  </h4>
-                  <ul className="space-y-3 text-[14px] font-inter font-normal text-gray-800">
-                    <li className="hover:text-black cursor-pointer transition-colors">
-                      For Students
-                    </li>
-                    <li className="hover:text-black cursor-pointer transition-colors">
-                      For Schools & Colleges
-                    </li>
-                    <li className="hover:text-black cursor-pointer transition-colors">
-                      For Institutions
-                    </li>
-                    <li className="hover:text-black cursor-pointer transition-colors">
-                      For Corporate Training
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-inter font-medium text-[16px] mb-4">
-                    Resources
-                  </h4>
-                  <ul className="space-y-3 text-[14px] font-inter font-normal text-gray-800">
-                    <li className="hover:text-black cursor-pointer transition-colors">
-                      Help Center
-                    </li>
-                    <li className="hover:text-black cursor-pointer transition-colors">
-                      User Guides
-                    </li>
-                    <li className="hover:text-black cursor-pointer transition-colors">
-                      Terms of Service
-                    </li>
-                    <li className="hover:text-black cursor-pointer transition-colors">
-                      Privacy Policy
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div className="border-t border-gray-300 pt-8 text-center">
-              <p className="text-[12px] text-gray-700 font-inter font-medium">
-                Copyright 2025 SmartEdLabs. All Rights Reserved.
-              </p>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </div>
   );

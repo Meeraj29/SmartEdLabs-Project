@@ -68,3 +68,29 @@
 .bg-testimonial-fade {
   background: linear-gradient(270deg, #f2f2f2 0%, rgba(242, 242, 242, 0.1) 100%);
 }
+
+@layer utilities {
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+}
+
+.btn-prev.swiper-button-disabled,
+.btn-next.swiper-button-disabled {
+  cursor: not-allowed !important;
+  /* The "block" state cursor */
+  opacity: 0.4;
+  /* Visual cue that it is disabled */
+  pointer-events: auto;
+  /* Keep this 'auto' so the cursor actually shows the block icon */
+}

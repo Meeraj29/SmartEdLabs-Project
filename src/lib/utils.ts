@@ -2,6 +2,8 @@ import { type ClassValue, clsx } from "clsx";
 import { Geist, Geist_Mono, Inter, Russo_One } from "next/font/google";
 import { twMerge } from "tailwind-merge";
 
+
+
 // 1. Existing Tailwind CSS merger utility
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -25,10 +27,11 @@ export const geistMono = Geist_Mono({
   subsets: ["latin"],
   display: "swap",
 });
-
 export const russoOne = Russo_One({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-russo",
   display: "swap",
 });
+
+

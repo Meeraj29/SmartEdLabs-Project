@@ -8,6 +8,9 @@ import "swiper/css";
 import { Inter } from "next/font/google";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
+import Testimonial from "@/components/testimonial";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Page() {
@@ -171,6 +174,7 @@ export default function Page() {
       text: "Prior Teaching Experience (Online Or Offline) Is Preferred",
     },
   ];
+  const [showMobileMore, setShowMobileMore] = useState(false);
   const responsibilities = [
     "Conduct live English classes based on assigned learner levels",
     "Teach listening, speaking, reading, and writing skills effectively",
@@ -180,6 +184,18 @@ export default function Page() {
     "Communicate learning progress with learners and, when required, parents",
   ];
   const [activeIdx, setActiveIdx] = useState(0);
+  const scrollToSection = () => {
+    const element = document.getElementById('application-form');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+  const scrollToRequirements = () => {
+    const element = document.getElementById('requirements');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
   return (
     <div className="flex flex-col min-h-screen bg-black">
       <div className="relative w-full max-w-[1440px] mx-auto overflow-hidden min-h-[578px] lg:h-[578px] bg-white">
@@ -194,141 +210,11 @@ export default function Page() {
           <div className="absolute inset-0 z-10 " />
         </div>
 
-        <header className="w-full flex justify-center sticky top-0 z-50">
-          <div className="w-full px-4 md:px-6 lg:px-[100px] h-[72px] lg:h-[96px] flex items-center justify-between">
-            <div className="relative z-30 flex items-center gap-[12px]">
-              <Image
-                src="/logo.svg"
-                alt="Logo"
-                width={40}
-                height={40}
-                className="w-[40px] h-[40px] lg:w-[64px] lg:h-[64px]"
-              />
-              <span
-                className="text-black font-medium text-[18px] lg:text-[26px]"
-                style={{ fontFamily: "Russo One" }}
-              >
-                SmartEdLabs
-              </span>
-            </div>
+        <Navbar />
 
-            <nav className="relative z-30 hidden lg:flex items-center px-4 py-2 rounded-full border border-gray-100 bg-white/80 backdrop-blur-md">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`px-6 py-2 rounded-full text-[14px] font-medium transition-all ${pathname === link.href
-                    ? "bg-white shadow-md text-[#31564E]"
-                    : "text-black hover:text-green-900"
-                    }`}
-                >
-                  {link.name}
-                </Link>
-              ))}
-              <div
-                className="relative inline-block text-left"
-                ref={dropdownRef}
-              >
-                {/* Trigger Button */}
-                <button
-                  onClick={() => setIsOpen(!isOpen)}
-                  className="flex items-center text-[14px] gap-1 px-4 py-2 text-gray-700 font-medium hover:text-emerald-800 transition-colors"
-                >
-                  More
-                  <svg
-                    className={`w-4 h-4 transition-transform ${isOpen ? "rotate-180" : ""}`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </button>
 
-                {/* The Menu (Visible only when isOpen is true) */}
-                {isOpen && (
-                  <div className="absolute left-0 mt-2 w-72 bg-white rounded-[2rem] shadow-xl ring-1 ring-black/5 z-50 p-4">
-                    <div className="flex flex-col gap-1">
-                      {morelinks.map((link, index) => (
-                        <a
-                          key={index}
-                          href={link.href}
-                          className="px-5 py-3 text-[16px] text-gray-800 font-medium rounded-2xl transition-colors hover:bg-emerald-50 hover:text-emerald-900"
-                        >
-                          {link.label}
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            </nav>
 
-            <div
-              className={`fixed inset-0 bg-white z-50 transition-transform duration-300 flex flex-col lg:hidden ${isOpen ? "translate-x-0" : "translate-x-full"
-                }`}
-            >
-              <div className="flex items-center p-6 border-b border-gray-100">
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="flex items-center gap-2 text-black hover:text-[#31564E] transition-colors"
-                ></button>
-              </div>
-
-              <nav className="flex flex-col gap-4 p-6 overflow-y-auto">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setIsOpen(false)} // Close menu when clicking a link
-                    className={`px-10 py-4 text-center text-xl font-semibold rounded-full border-2 transition-all 
-        ${pathname === link.href
-                        ? "bg-[#F7FFFA] border-[#31564E] text-[#31564E] shadow-md"
-                        : "bg-white border-gray-100 text-black"
-                      }`}
-                  >
-                    {link.name}
-                  </Link>
-                ))}
-
-                <div className="flex flex-col items-center justify-center gap-4 w-full px-4 md:flex-row md:gap-6">
-                  <button className="mt-4 md:mt-0  w-full max-w-[318px] h-[51px] flex items-center justify-center gap-[10px] rounded-full border-2 border-[#31564E] text-[#31564E] text-sm font-semibold cursor-pointer transition-all duration-150 active:scale-95 hover:bg-[#31564E] hover:text-white">
-                    Book A Free Demo
-                  </button>
-
-                  <button className="w-full max-w-[318px] h-[51px] flex items-center justify-center gap-[10px] cursor-pointer transition-all duration-150 active:scale-95 rounded-full bg-black text-white text-[16px] font-semibold hover:bg-[#31564E]">
-                    Register
-                  </button>
-                </div>
-              </nav>
-            </div>
-
-            <div className=" relative z-30 flex items-center gap-3">
-              <button className="hidden lg:block w-[190px] h-[51px] rounded-full border-2 border-[#31564E] text-[#31564E] text-sm font-semibold cursor-pointer transition-transform duration-150 active:scale-95 hover:bg-[#31564E] hover:text-white">
-                Book A Free Demo
-              </button>
-              <Link
-                href="/register"
-                className="hidden sm:flex items-center justify-center w-[112px] h-[51px] cursor-pointer transition-transform duration-150 active:scale-95 rounded-full bg-black text-white text-sm font-semibold hover:bg-[#31564E]"
-              >
-                Register
-              </Link>
-
-              <button
-                className="lg:hidden text-black p-2"
-                onClick={() => setIsOpen(!isOpen)}
-              >
-                {isOpen ? <X size={28} /> : <Menu size={28} />}
-              </button>
-            </div>
-          </div>
-        </header>
-        <nav className="ml-8 relative hidden md:flex items-center gap-[8px] px-4 lg:px-[100px] py-4 z-20">
+        <nav className=" relative hidden md:flex items-center gap-[8px] px-4 lg:px-[100px] py-4 z-20">
           <a href="/" className="text-sm font-medium hover:text-blue-600">
             Home
           </a>
@@ -361,11 +247,16 @@ export default function Page() {
         2. Added md:w-auto to allow the container to fit the side-by-side buttons.
     */}
             <div className="flex flex-col md:flex-row items-center justify-center gap-[16px] z-30 mt-8 md:mt-10 w-full max-w-[450px] md:max-w-none mx-auto min-h-[51px]">
-              <button className="w-full md:w-auto px-8 py-3.5 bg-black text-white rounded-full font-semibold text-[16px] transition-all hover:bg-[#31564E] active:scale-95 shadow-lg">
+              <button
+                onClick={scrollToSection}
+                className="w-full md:w-auto px-8 py-3.5 bg-black text-white rounded-full font-semibold text-[16px] transition-all hover:bg-[#31564E] active:scale-95 shadow-lg"
+              >
                 Apply as a Teacher
               </button>
 
-              <button className="w-full md:w-auto px-8 py-3.5 border-2 border-[#31564E] text-[#31564E] rounded-full font-semibold text-[16px] transition-all hover:bg-[#31564E] hover:text-white active:scale-95 bg-white/50 backdrop-blur-sm">
+              <button
+                onClick={scrollToRequirements}
+                className="w-full md:w-auto px-8 py-3.5 border-2 border-[#31564E] text-[#31564E] rounded-full font-semibold text-[16px] transition-all hover:bg-[#31564E] hover:text-white active:scale-95 bg-white/50 backdrop-blur-sm">
                 View Requirements
               </button>
             </div>
@@ -426,6 +317,8 @@ export default function Page() {
         </div>
       </section>
 
+
+      <section id="requirements" />
       <section className="relative min-h-screen w-full max-w-[1440px] mx-auto text-white flex flex-col items-center justify-center p-6 md:p-16 overflow-hidden">
         {/* Background Image with Dark Overlay */}
         <div className="absolute inset-0 z-0 w-full">
@@ -586,183 +479,15 @@ export default function Page() {
           </div>
         </section>
 
-        <section
-          className="relative mx-auto flex w-full flex-col items-center bg-[#F8FEFD] overflow-hidden px-4 max-w-[1440px] md:px-6"
-          style={{ width: "100%", maxWidth: "1440px", minHeight: "614px" }}
-        >
-          <div className="relative z-20 mt-14 md:mt-0 md:absolute md:top-14 flex flex-col items-center text-center w-full max-w-[630px] max-h-[170px]">
-            <div
-              className="inline-flex items-center justify-center border-gray-200 bg-white shadow-sm mb-4 border"
-              style={{ width: "128px", height: "40px", borderRadius: "20px" }}
-            >
-              <div className="flex items-center justify-center bg-[#CCFF00] rounded-full w-6 h-6 mr-2">
-                <Image
-                  src="/testimonial.svg"
-                  alt="Testimonial"
-                  width={16}
-                  height={16}
-                />
-              </div>
-              <span className="text-[14px] font-medium text-gray-600">
-                Testimonials
-              </span>
-            </div>
-
-            <h2
-              className="font-semibold text-[#111827] mb-4 w-full max-w-[579px]"
-              style={{ fontSize: "clamp(24px, 5vw, 32px)", lineHeight: "1.2" }}
-            >
-              What <span className="text-[#FF8A00]">Learners</span> and{" "}
-              <span className="text-[#2D5A54]">Educators</span> Say
-            </h2>
-
-            <p
-              className="text-[#6B7280] w-full max-w-[630px]"
-              style={{ fontSize: "16px", lineHeight: "26px" }}
-            >
-              Real experiences from students, educators, and training teams
-              using the platform to improve English communication.
-            </p>
-          </div>
-
-          <div className="pt-20 md:pt-70 relative w-full overflow-hidden bg-[#F8FEFD] ">
-            <div className="max-w-[1440px] mx-auto relative h-auto md:h-[304px] z-50">
-              <Swiper
-                modules={[Navigation]}
-                navigation={{
-                  nextEl: ".btn-next",
-                  prevEl: ".btn-prev",
-                }}
-                onSlideChange={(swiper) => setActiveIdx(swiper.realIndex)}
-                centeredSlides={true}
-                slidesPerView={"auto"}
-                spaceBetween={20}
-                breakpoints={{
-                  768: { spaceBetween: 40 },
-                }}
-                className="h-full overflow-visible px-4 "
-              >
-                {testimonialData.map((data, index) => {
-                  const isActive = index === activeIdx;
-                  const verticalShift =
-                    index < activeIdx
-                      ? "translate-y-30" // Slides on the left go down
-                      : index > activeIdx
-                        ? "-translate-y-0" // Slides on the right go up
-                        : "translate-y-0";
-                  return (
-                    <SwiperSlide
-                      key={data.id}
-                      className={` ${verticalShift}`}
-                      style={{
-                        width: isActive ? "min(92vw, 610px)" : "200px",
-                      }}
-                    >
-                      <div
-                        className={`relative flex flex-col md:flex-row items-center md:items-start  ${isActive
-                          ? "bg-[#F7FFFA] shadow-lg border border-[#E5E7EB]"
-                          : "bg-transparent"
-                          }`}
-                        style={{
-                          borderRadius: "24px",
-                          width: "100%",
-                          height: isActive ? "auto" : "272px",
-                          minHeight: isActive ? "272px" : "auto",
-                          padding: isActive ? "16px" : "0px",
-                        }}
-                      >
-                        <div
-                          className={`
-    relative flex-shrink-0  rounded-[20px] overflow-hidden
-    ${isActive
-                              ? "w-full md:w-[200px] max-w-full md:max-w-[200px] h-[240px]"
-                              : "w-[200px] h-[128px]"
-                            }
-  `}
-                        >
-                          <Image
-                            src={data.image}
-                            alt={data.name}
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
-
-                        <div
-                          className={`flex flex-col justify-between  ${isActive
-                            ? "opacity-100 translate-y-0 md:mt-0 md:ml-6 flex-1 w-full"
-                            : "opacity-0 translate-y-4 h-0 overflow-hidden"
-                            }`}
-                          style={{ minHeight: isActive ? "200px" : "0" }}
-                        >
-                          {isActive && (
-                            <>
-                              <div className="flex flex-col items-center md:items-start text-center md:text-left">
-                                <div className="flex gap-1 mb-3">
-                                  {[...Array(5)].map((_, i) => (
-                                    <div key={i} className="relative w-4 h-4">
-                                      <Image
-                                        src="/star5.png"
-                                        alt="Star"
-                                        fill
-                                        className="object-contain"
-                                      />
-                                    </div>
-                                  ))}
-                                </div>
-
-                                <p className="text-[15px] md:text-[16px] leading-[24px] md:leading-[28px] text-[#111827] font-medium">
-                                  &ldquo;{data.quote}&rdquo;
-                                </p>
-                              </div>
-
-                              <div className="mt-4 pt-4 border-t border-gray-100 w-full text-center md:text-left">
-                                <h4 className="font-bold text-[16px] text-[#111827]">
-                                  {data.name}
-                                </h4>
-                                <p className="text-[12px] text-gray-500 uppercase tracking-wide">
-                                  {data.role}
-                                </p>
-                              </div>
-                            </>
-                          )}
-                        </div>
-                      </div>
-                    </SwiperSlide>
-                  );
-                })}
-              </Swiper>
-
-              <div className="flex justify-center gap-4 mt-8 md:mt-0 pb-10">
-                <button className="btn-prev relative md:absolute md:left-[10%] cursor-pointer transition-all lg:left-[15%] xl:left-[347px] md:top-[16px] md:-translate-y-1/2 z-20 rounded-full flex items-center justify-center shadow-lg transition-transform active:scale-90">
-                  <Image
-                    src="/leftarrow.png"
-                    alt="Prev"
-                    width={48}
-                    height={48}
-                    className="w-10 h-10 md:w-12 md:h-12"
-                  />
-                </button>
-
-                <button className="btn-next relative md:absolute md:right-[10%] cursor-pointer transition-all lg:right-[15%] xl:right-[347px] md:top-[270px] md:-translate-y-1/2 z-20 rounded-full flex items-center justify-center shadow-lg transition-transform active:scale-90">
-                  <Image
-                    src="/rightarrow.png"
-                    alt="Next"
-                    width={48}
-                    height={48}
-                    className="w-10 h-10 md:w-12 md:h-12"
-                  />
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-
+        <Testimonial />
+        <section id="application-form" />
         <section className="min-h-screen bg-white flex items-center justify-center min-h-[600px] p-4 md:p-6">
           <div className="max-w-[1240px] w-full grid grid-cols-1 lg:grid-cols-3 gap-8 ">
             {/* Left Column: Info Cards */}
             <div className="flex flex-col gap-[14px] items-center lg:items-start">
               {/* Green Card */}
+
+
               <div className="bg-[#2D4F46] text-white p-8 w-full max-w-[404px] min-h-[280px] rounded-[16px] shadow-sm flex flex-col justify-center">
                 <h1 className="text-[36px] md:text-[48px] font-inter font-bold mb-4">
                   Still Have Questions?
@@ -872,212 +597,10 @@ export default function Page() {
               </form>
             </div>
           </div>
+
         </section>
 
-        <footer className="pb-10 py-12 px-4 md:px-10 font-sans max-w-[1440px] w-full bg-white">
-          <div className=" mx-auto border border-gray-300 bg-[#E5E5E5] max-w-[1240px] rounded-[24px] p-6 md:p-10">
-            <div className="bg-white rounded-[24px] p-6 md:p-12 flex flex-col lg:flex-row items-center justify-between gap-8 mb-16">
-              <div className="max-w-full lg:max-w-[316px] text-center lg:text-left">
-                <h2 className="text-[24px] font-inter font-semibold text-gray-900 mb-2">
-                  Stay Updated
-                </h2>
-
-                <p className="text-gray-500 text-[16px] font-inter font-medium">
-                  Subscribe to get the latest lessons, updates and special
-                  offers
-                </p>
-              </div>
-
-              <div className="flex flex-col sm:flex-row w-full lg:w-auto gap-3">
-                <input
-                  type="email"
-                  placeholder="Enter your email address"
-                  className="px-6 py-4 rounded-full border border-gray-200 w-full lg:w-[280px] h-[51px] outline-none focus:ring-2 focus:ring-gray-100 transition-all"
-                />
-
-                <button className="bg-black text-white w-full cursor-pointer transition-all sm:w-[140px] h-[51px] rounded-full font-semibold hover:bg-gray-800 active:scale-95 transition-colors shrink-0">
-                  Subscribe
-                </button>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 pb-12">
-              <div className="lg:col-span-5 flex flex-col items-center lg:items-start text-center lg:text-left">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 flex items-center justify-center">
-                    <Image src="/logo.svg" alt="Logo" width={64} height={64} />
-                  </div>
-
-                  <h3 className="text-[26px] font-inter font-normal">
-                    SmartEdLabs
-                  </h3>
-                </div>
-
-                <p className="text-gray-600 text-[16px] font-inter font-normal mb-8 max-w-[363px] tracking-wide">
-                  An AI-powered English learning platform helping students,
-                  educators, and organizations build strong listening, speaking,
-                  reading, and writing skills.
-                </p>
-
-                {/* Social Icons */}
-
-                <div className="flex flex-wrap justify-center lg:justify-start gap-3">
-                  <div className=" group flex items-center justify-center rounded-full bg-transparent transition-all duration-300 cursor-pointer hover:bg-[#F2181C]">
-                    <Image
-                      src="/youtube.svg"
-                      alt="Social"
-                      width={48} // Smaller icon size inside the 48px circle looks more professional
-                      height={48}
-                      className="transition-all duration-300 group-hover:brightness-0 group-hover:invert"
-                    />
-                  </div>
-
-                  <div className=" group flex items-center justify-center w-[48px] h-[48px] rounded-full bg-transparent transition-all duration-300 cursor-pointer hover:bg-[#1877F2]">
-                    <Image
-                      src="/facebook.png"
-                      alt="Social"
-                      width={48}
-                      height={48}
-                      className="transition-all duration-300 group-hover:brightness-0 group-hover:invert"
-                    />
-                  </div>
-
-                  <div className=" group flex items-center justify-center w-[48px] h-[48px] rounded-full bg-transparent transition-all duration-300 cursor-pointer hover:bg-[#B8D7FF]">
-                    <Image
-                      src="/internet.png"
-                      alt="Social"
-                      width={48}
-                      height={48}
-                      className="transition-all duration-300 group-hover:brightness-0 group-hover:invert"
-                    />
-                  </div>
-
-                  <div className=" group flex items-center justify-center w-[48px] h-[48px] rounded-full bg-transparent transition-all duration-500 cursor-pointer hover:bg-[linear-gradient(149.81deg,#405DE6_-45.44%,#5B51D8_27.28%,#833AB4_63.64%,#A2389C_81.82%,#C23484_90.91%,#FD1D1D_100%)]">
-                    <div className="relative w-[48px] h-[48px]">
-                      <Image
-                        src="/insta.png"
-                        alt="Instagram"
-                        fill
-                        className="object-contain transition-all duration-300 group-hover:brightness-0 group-hover:invert"
-                      />
-                    </div>
-                  </div>
-
-                  <div className=" group flex items-center justify-center w-[48px] h-[48px] rounded-full bg-transparent transition-all duration-300 cursor-pointer hover:bg-[#1877F2]">
-                    <div className="relative w-[48px] h-[48px]">
-                      <Image
-                        src="/linkedin.png"
-                        alt="Facebook"
-                        fill
-                        className="object-contain transition-all duration-300 group-hover:brightness-0 group-hover:invert"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-10 lg:pl-20 text-center sm:text-left ">
-                <div>
-                  <h4 className="font-inter font-medium text-[16px] mb-4">
-                    Quick Links
-                  </h4>
-
-                  <ul className="space-y-3 text-[14px] font-inter font-normal text-gray-700">
-                    <li className="hover:text-black cursor-pointer transition-colors">
-                      <Link href="/" className="block w-full">
-                        Home
-                      </Link>
-                    </li>
-
-                    <li className="hover:text-black cursor-pointer transition-colors">
-                      <Link href="/features" className="block w-full">
-                        Features
-                      </Link>
-                    </li>
-
-                    <li className="hover:text-black cursor-pointer transition-colors">
-                      <Link href="/pricing" className="block w-full">
-                        Pricing
-                      </Link>
-                    </li>
-
-                    <li className="hover:text-black cursor-pointer transition-colors">
-                      <Link href="/blogs" className="block w-full">
-                        Blogs
-                      </Link>
-                    </li>
-
-                    <li className="hover:text-black cursor-pointer transition-colors">
-                      <Link href="/about" className="block w-full">
-                        About Us
-                      </Link>
-                    </li>
-
-                    <li className="hover:text-black cursor-pointer transition-colors">
-                      <Link href="/contact" className="block w-full">
-                        Contact Us
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-
-                <div>
-                  <h4 className="font-inter font-medium text-[16px] mb-4">
-                    Solutions
-                  </h4>
-
-                  <ul className="space-y-3 text-[14px] font-inter font-normal text-gray-800">
-                    <li className="hover:text-black cursor-pointer transition-colors">
-                      For Students
-                    </li>
-
-                    <li className="hover:text-black cursor-pointer transition-colors">
-                      For Schools & Colleges
-                    </li>
-
-                    <li className="hover:text-black cursor-pointer transition-colors">
-                      For Institutions
-                    </li>
-
-                    <li className="hover:text-black cursor-pointer transition-colors">
-                      For Corporate Training
-                    </li>
-                  </ul>
-                </div>
-
-                <div>
-                  <h4 className="font-inter font-medium text-[16px] mb-4">
-                    Resources
-                  </h4>
-
-                  <ul className="space-y-3 text-[14px] font-inter font-normal text-gray-800">
-                    <li className="hover:text-black cursor-pointer transition-colors">
-                      Help Center
-                    </li>
-
-                    <li className="hover:text-black cursor-pointer transition-colors">
-                      User Guides
-                    </li>
-
-                    <li className="hover:text-black cursor-pointer transition-colors">
-                      Terms of Service
-                    </li>
-
-                    <li className="hover:text-black cursor-pointer transition-colors">
-                      Privacy Policy
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div className="border-t border-gray-300 pt-8 text-center">
-              <p className="text-[12px] text-gray-700 font-inter font-medium">
-                Copyright 2025 SmartEdLabs. All Rights Reserved.
-              </p>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </div>
   );
