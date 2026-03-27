@@ -94,3 +94,13 @@
   pointer-events: auto;
   /* Keep this 'auto' so the cursor actually shows the block icon */
 }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+  /* Adjust this to match your navbar height */
+}
+
+.scroll-behaviour {
+  scroll-behavior: smooth;
+}

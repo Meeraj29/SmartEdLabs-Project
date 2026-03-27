@@ -273,7 +273,7 @@ export default function Page() {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen bg-black">
+    <div className="flex flex-col min-h-screen bg-black ">
       <div className="relative w-full max-w-[1440px] mx-auto overflow-hidden min-h-[700px] lg:h-[780px] bg-white">
         <div className="absolute inset-0 z-0">
           <Image
@@ -306,7 +306,7 @@ export default function Page() {
 
         <Navbar />
 
-        <main className="relative z-30 px-4 sm:px-6 pt-8 md:pt-20 pb-20">
+        <main className="relative z-30 px-4 sm:px-6 pt-8 md:pt-20 pb-20 mt-20">
           <section className="flex flex-col items-center max-w-[850px] mx-auto text-center">
             <div className="flex items-center justify-center px-2 py-2 gap-2 rounded-full border border-white bg-white/90 shadow-sm">
               <Image

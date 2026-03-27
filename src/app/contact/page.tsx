@@ -132,7 +132,7 @@ export default function Page() {
 
         <div className="relative z-20 mt-16 flex flex-col max-w-[1030px] mx-auto items-center justify-center px-4 py-12 lg:py-0 flex-grow">
           <div className={`${inter.className} w-full text-center`}>
-            <h1 className="text-[32px] md:text-[48px] lg:text-[56px] mt-14 font-semibold font-inter text-black leading-tight">
+            <h1 className="text-[32px] md:text-[48px] lg:text-[56px] mt-40 font-semibold font-inter text-black leading-tight">
               “Get in Touch with ILLP”
             </h1>
             <p className="text-[16px] md:text-[18px] font-normal text-gray-800 max-w-[717px] mt-4 mx-auto font-inter leading-tight">

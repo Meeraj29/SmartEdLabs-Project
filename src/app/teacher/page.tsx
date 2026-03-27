@@ -234,7 +234,7 @@ export default function Page() {
 
         <div className="relative z-20 flex flex-col max-w-[1030px] mx-auto items-center justify-center px-4 py-12 lg:py-0 flex-grow">
           <div className={`${inter.className} w-full text-center`}>
-            <h1 className="text-[32px] md:text-[48px] lg:text-[56px] mt-10 md:mt-14 font-semibold font-inter text-black leading-tight px-2">
+            <h1 className="text-[32px] md:text-[48px] lg:text-[56px] mt-30 md:mt-40 font-semibold font-inter text-black leading-tight px-2">
               Teach English Online. Inspire Learners Worldwide.
             </h1>
             <p className="text-[16px] md:text-[18px] font-normal text-gray-800 max-w-[885px] mt-4 mx-auto font-inter leading-tight md:leading-normal">

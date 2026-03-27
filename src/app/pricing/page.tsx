@@ -150,7 +150,7 @@ export default function PricingPage() {
             Pricing
           </a>
         </div>
-        <div className="relative z-20 flex flex-col max-w-[885px] mx-auto mb-30 items-center justify-center px-4 py-12 lg:py-0 flex-grow">
+        <div className="relative z-20 flex flex-col max-w-[885px] mx-auto  items-center justify-center px-4 py-12 lg:py-0 flex-grow ">
           <div className={`${inter.className}  w-full text-center`}>
             <h1 className="text-[32px] md:text-[48px] lg:text-[56px] font-semibold font-inter text-black tracking-tight">
               Flexible Plans Designed for Real Learning Progress
@@ -163,6 +163,7 @@ export default function PricingPage() {
           </div>
         </div>{" "}
       </div>
+
       <div className="w-full max-w-[1440px] mx-auto bg-black relative z-10">
         <section className="bg-[#F7FFFA] py-16 px-4 md:px-10 min-h-screen flex flex-col items-center">
           {/* Header Section */}

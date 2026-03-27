@@ -43,7 +43,7 @@ export default function Navbar() {
 
   return (
 
-    <header className="w-full flex justify-center z-50">
+    <header className="max-w-[1440px] mx-auto w-full flex justify-center z-50 fixed top-0 scroll-behaviour bg-white/80 backdrop-blur-md">
       <div className="w-full px-4 md:px-6 lg:px-[100px] h-[72px] lg:h-[96px] flex items-center justify-between">
         <div className="relative z-30 flex items-center gap-[12px]">
           <Link href="/">
@@ -134,12 +134,12 @@ export default function Navbar() {
           <div className={`fixed inset-0 z-50 bg-white transform transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "translate-x-full"}`}>
 
             {/* Header with 'X' Close Button */}
-            <div className="flex justify-end p-6">
+            <div className="flex justify-end p-6 bg-white">
               <button onClick={() => setIsOpen(false)} className="text-3xl">&times;</button>
             </div>
 
             {/* Scrollable Navigation Area */}
-            <nav className="flex flex-col gap-4 p-6 overflow-y-auto scrollbar-thin max-h-[700px]">
+            <nav className="flex flex-col gap-4 p-6 overflow-y-auto scrollbar-thin h-[700px] bg-white">
               {/* Standard Links */}
               {navLinks.map((link) => (
                 <Link

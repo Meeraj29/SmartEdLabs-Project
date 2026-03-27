@@ -204,7 +204,7 @@ export default function BlogsPage() {
           </a>
         </nav>
 
-        <div className="relative z-20 flex flex-col max-w-[829px] mx-auto mb-30 items-center justify-center px-4 py-12 lg:py-0 flex-grow">
+        <div className="relative z-20 flex flex-col max-w-[829px] mx-auto  items-center justify-center px-4 py-12 lg:py-0 flex-grow">
           <div className="flex items-center justify-center px-1 py-1 bg-white text-black rounded-[20px] gap-1 border border-gray-200">
             <Image src="/blogs.png" alt="Blogs" width={24} height={24} />
 

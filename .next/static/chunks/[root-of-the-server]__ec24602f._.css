@@ -986,6 +986,10 @@
     top: calc(var(--spacing) * 6);
   }
 
+  .top-10 {
+    top: calc(var(--spacing) * 10);
+  }
+
   .top-\[10px\] {
     top: 10px;
   }
@@ -1195,6 +1199,10 @@
 
   .mt-20 {
     margin-top: calc(var(--spacing) * 20);
+  }
+
+  .mt-30 {
+    margin-top: calc(var(--spacing) * 30);
   }
 
   .mt-40 {
@@ -1622,6 +1630,14 @@
     height: 500px;
   }
 
+  .h-\[700px\] {
+    height: 700px;
+  }
+
+  .h-\[800px\] {
+    height: 800px;
+  }
+
   .h-\[1750px\] {
     height: 1750px;
   }
@@ -1661,6 +1677,26 @@
 
   .max-h-\[700px\] {
     max-height: 700px;
+  }
+
+  .max-h-\[800px\] {
+    max-height: 800px;
+  }
+
+  .max-h-\[900px\] {
+    max-height: 900px;
+  }
+
+  .max-h-\[1000px\] {
+    max-height: 1000px;
+  }
+
+  .max-h-\[1200px\] {
+    max-height: 1200px;
+  }
+
+  .max-h-full {
+    max-height: 100%;
   }
 
   .min-h-\[51px\] {
@@ -5664,6 +5700,12 @@
   }
 
   @media (min-width: 48rem) {
+    .md\:mt-30 {
+      margin-top: calc(var(--spacing) * 30);
+    }
+  }
+
+  @media (min-width: 48rem) {
     .md\:mt-40 {
       margin-top: calc(var(--spacing) * 40);
     }
@@ -6608,6 +6650,12 @@
   @media (min-width: 48rem) {
     .md\:pt-4 {
       padding-top: calc(var(--spacing) * 4);
+    }
+  }
+
+  @media (min-width: 48rem) {
+    .md\:pt-10 {
+      padding-top: calc(var(--spacing) * 10);
     }
   }
 
@@ -7888,6 +7936,15 @@
   opacity: .4;
   pointer-events: auto;
   cursor: not-allowed !important;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+}
+
+.scroll-behaviour {
+  scroll-behavior: smooth;
 }
 
 @property --tw-translate-x {

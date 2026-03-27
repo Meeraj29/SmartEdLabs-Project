@@ -201,7 +201,7 @@ export default function Page() {
         </nav>
         <div className="relative z-20 flex flex-col max-w-[816px] mx-auto items-center justify-center px-4 py-12 lg:py-0 flex-grow">
           <div className={`${inter.className} w-full text-center`}>
-            <h1 className="text-[32px] md:text-[48px] lg:text-[56px] mt-10 md:mt-14 font-semibold font-inter text-black leading-tight">
+            <h1 className="text-[32px] md:text-[48px] lg:text-[56px] mt-30 md:mt-40 font-semibold font-inter text-black leading-tight">
               Build a Career That Makes an Impact
             </h1>
 

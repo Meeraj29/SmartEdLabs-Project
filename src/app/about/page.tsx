@@ -119,7 +119,7 @@ export default function aboutus() {
           </a>
         </nav>
 
-        <div className="relative z-20 flex flex-col max-w-[885px] mx-auto mb-30 items-center justify-center px-4 py-12 lg:py-0 flex-grow">
+        <div className="relative z-20 flex flex-col max-w-[885px] mx-auto mt-30 items-center justify-center px-4 py-12 lg:py-0 flex-grow">
           <div className={`${inter.className}  w-full text-center`}>
             <h1 className="text-[32px] md:text-[48px] lg:text-[56px] font-semibold font-inter text-black leading-normal tracking-tight">
               A Smarter Way to Learn, Teach, and Scale Languages
