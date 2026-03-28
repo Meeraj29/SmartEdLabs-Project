@@ -157,7 +157,7 @@ export default function Page() {
             {/* Used aspect ratios to keep the "Leaf" look consistent while scaling */}
             <div className="flex w-full h-auto gap-3 md:gap-[20px] items-center">
               {/* Top Left - Large Leaf */}
-              <div className=" overflow-hidden rounded-tl-[16px] rounded-tr-[48px] rounded-br-[16px] rounded-bl-[48px]">
+              <div className=" flex-[1.4] aspect-[352/240] overflow-hidden rounded-tl-[16px] rounded-tr-[48px] rounded-br-[16px] rounded-bl-[48px]">
                 <Image
                   src="/laptop1.jpg"
                   alt="Work"
